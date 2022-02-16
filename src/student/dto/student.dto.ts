@@ -1,5 +1,4 @@
 export class CreateStudentDto {
-  id: string;
   name: string;
   teacher: string;
 }
