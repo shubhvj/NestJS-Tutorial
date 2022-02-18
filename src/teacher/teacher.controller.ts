@@ -1,5 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { StudentService } from 'src/student/student.service';
+import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { FindTeacherResponseDto } from './dto/teacher.dto';
 import { TeacherService } from './teacher.service';
 
@@ -14,7 +13,7 @@ export class TeacherController {
 
   @Get('/:teacherId')
   getTeacherById(
-    @Param('teacherId') teacherId: string,
+    @Param('teacherId', new ParseUUIDPipe()) teacherId: string,
   ): FindTeacherResponseDto {
     return this.teacherService.getTeacherById(teacherId);
   }
