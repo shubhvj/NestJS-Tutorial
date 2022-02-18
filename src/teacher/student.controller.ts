@@ -1,5 +1,6 @@
 import { Controller, Get, Put, Param } from '@nestjs/common';
 import { StudentService } from 'src/student/student.service';
+import { TeacherService } from './teacher.service';
 import {
   FindStudentResponseDto,
   StudentResponseDto,
@@ -11,7 +12,7 @@ export class StudentTeacherController {
 
   @Get()
   getStudents(@Param('teacherId') teacherId: string): FindStudentResponseDto[] {
-    return this.studentService.getStudents();
+    return this.studentService.getStudentsByTeacherId(teacherId);
   }
 
   @Put('/:studentId')
@@ -19,6 +20,6 @@ export class StudentTeacherController {
     @Param('teacherId') teacherId: string,
     @Param('studentId') studentId: string,
   ): StudentResponseDto {
-    return;
+    return this.studentService.updateStudentTeacher(teacherId, studentId);
   }
 }

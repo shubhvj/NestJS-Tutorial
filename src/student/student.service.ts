@@ -42,6 +42,7 @@ export class StudentService {
           id: studentId,
           ...payload,
         };
+        return updatedStudent;
       } else {
         return student;
       }
@@ -50,17 +51,34 @@ export class StudentService {
     this.students = updatedStudentList;
 
     return updatedStudent;
+  }
 
-    // let oldStudent = this.students.find((student) => {
-    //   if (student.id === studentId) {
-    //     student.name = payload.name;
-    //     student.teacher = payload.teacher;
-    //   } else {
-    //     return student;
-    //   }
-    // });
-    // // oldStudent.name = payload.name;
-    // // oldStudent.teacher = payload.teacher;
-    // return oldStudent;
+  getStudentsByTeacherId(teacherId: string): FindStudentResponseDto[] {
+    return this.students.filter((student) => {
+      return student.teacher === teacherId;
+    });
+  }
+
+  updateStudentTeacher(
+    teacherId: string,
+    studentId: string,
+  ): StudentResponseDto {
+    let updatedStudent: StudentResponseDto;
+
+    const updatedStudentList = this.students.map((student) => {
+      if (student.id === studentId) {
+        updatedStudent = {
+          ...student,
+          teacher: teacherId,
+        };
+        return updatedStudent;
+      } else {
+        return student;
+      }
+    });
+
+    this.students = updatedStudentList;
+
+    return updatedStudent;
   }
 }
